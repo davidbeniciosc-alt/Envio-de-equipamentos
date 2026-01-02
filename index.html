@@ -1,0 +1,662 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema de Equipamentos | NSO</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Sidebar NSO -->
+        <div class="sidebar">
+            <div class="logo">
+                <div class="logo-icon">
+                    <i class="fas fa-bus"></i>
+                </div>
+                <div class="logo-text">
+                    <h2>NSO</h2>
+                    <p>Controle de Equipamentos</p>
+                </div>
+            </div>
+            
+            <ul class="nav-menu">
+                <li class="nav-item">
+                    <a href="#" class="nav-link active" data-target="cadastrar">
+                        <i class="fas fa-plus-circle"></i>
+                        <span>Cadastrar Equipamento</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link" data-target="lista">
+                        <i class="fas fa-list"></i>
+                        <span>Lista de Equipamentos</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link" data-target="dashboard">
+                        <i class="fas fa-chart-bar"></i>
+                        <span>Dashboard & Análises</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+        
+        <!-- Main Content -->
+        <div class="main-content">
+            <div class="header">
+                <h1 id="page-title">Cadastrar Equipamento</h1>
+                <div class="user-info">
+                    <div class="system-status">
+                        <i class="fas fa-circle status-online"></i>
+                        <span>Carregando...</span>
+                    </div>
+                    <div class="user-avatar">NSO</div>
+                </div>
+            </div>
+
+            <!-- Cadastrar Equipamento -->
+            <div id="cadastrar" class="content-section active">
+                <div class="section-header">
+                    <h2><i class="fas fa-plus-circle"></i> Cadastrar Equipamento</h2>
+                </div>
+                
+                <form id="equipamento-form" class="modern-form">
+                    <div class="form-group">
+                        <label for="projeto">Projeto *</label>
+                        <select id="projeto" required>
+                            <option value="">Selecione o projeto</option>
+                            <option value="Intermunicipal">Intermunicipal</option>
+                            <option value="Municipal">Municipal</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="fornecedor">Fornecedor *</label>
+                        <select id="fornecedor" required>
+                            <option value="">Selecione o fornecedor</option>
+                            <option value="Autopass">Autopass</option>
+                            <option value="Prodata">Prodata</option>
+                            <option value="Noxxon">Noxxon</option>
+                            <option value="Gardens">Gardens</option>
+                            <option value="Powerfleet">Powerfleet</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="modelo">Modelo *</label>
+                        <input type="text" id="modelo" placeholder="Ex: V3695, K4" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="numero-serie">Nº de Série *</label>
+                        <input type="text" id="numero-serie" placeholder="Ex: 00187" required>
+                    </div>
+
+                    <div class="form-group full-width">
+                        <label for="defeito">Defeito *</label>
+                        <input type="text" id="defeito" placeholder="Descreva o problema encontrado" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="empresa">Empresa *</label>
+                        <select id="empresa" required>
+                            <option value="">Selecione a empresa</option>
+                            <option value="AVUL">AVUL</option>
+                            <option value="VSBL">VSBL</option>
+                            <option value="VCCL">VCCL</option>
+                            <option value="UTTL">UTTL</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="filial">Filial *</label>
+                        <select id="filial" required>
+                            <option value="">Selecione a filial</option>
+                            <option value="Osasco">Osasco</option>
+                            <option value="Jaguara">Jaguara</option>
+                            <option value="Franco">Franco</option>
+                            <option value="Caieiras">Caieiras</option>
+                            <option value="Santana">Santana</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="data-envio">Data de Envio *</label>
+                        <input type="date" id="data-envio" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="data-retorno">Data de Retorno</label>
+                        <input type="date" id="data-retorno">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Retornou da Assistência?</label>
+                        <div class="checkbox-group">
+                            <input type="checkbox" id="retornou">
+                            <label for="retornou" style="font-weight: normal;">Sim, equipamento retornou</label>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="optional">Possui Arquivo?</label>
+                        <div class="checkbox-group">
+                            <input type="checkbox" id="tem-arquivo">
+                            <label for="tem-arquivo" style="font-weight: normal;">Sim, possui arquivo</label>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary btn-large">
+                        <i class="fas fa-save"></i>
+                        Cadastrar Equipamento
+                    </button>
+                </form>
+            </div>
+
+            <!-- Lista de Equipamentos -->
+            <div id="lista" class="content-section">
+                <div class="section-header">
+                    <h2><i class="fas fa-list"></i> Lista de Equipamentos</h2>
+                    <div class="search-box">
+                        <i class="fas fa-search"></i>
+                        <input type="text" id="search-serie" placeholder="Buscar por número de série...">
+                    </div>
+                </div>
+
+                <div class="table-container">
+                    <table class="modern-table">
+                        <thead>
+                            <tr>
+                                <th>PROJETO</th>
+                                <th>FORNECEDOR</th>
+                                <th>MODELO</th>
+                                <th>Nº SÉRIE</th>
+                                <th>DEFEITO</th>
+                                <th>DATA ENVIO</th>
+                                <th>DATA RETORNO</th>
+                                <th>RETORNOU</th>
+                                <th>ARQUIVO</th>
+                                <th>AÇÕES</th>
+                            </tr>
+                        </thead>
+                        <tbody id="equipamentos-body">
+                            <tr>
+                                <td colspan="10" style="text-align: center; padding: 40px;">
+                                    <i class="fas fa-spinner fa-spin" style="font-size: 24px; color: var(--texto-claro); margin-bottom: 10px;"></i>
+                                    <p style="color: var(--texto-claro);">Carregando equipamentos...</p>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Dashboard e Análises -->
+            <div id="dashboard" class="content-section">
+                <div class="section-header">
+                    <h2><i class="fas fa-chart-bar"></i> Dashboard e Análises</h2>
+                    <div class="header-actions">
+                        <button id="refresh-dashboard" class="btn btn-primary">
+                            <i class="fas fa-sync-alt"></i> Atualizar
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Container do Dashboard -->
+                <div id="dashboard-content">
+                    <!-- Métricas Gerais -->
+                    <div class="dashboard-section">
+                        <h3><i class="fas fa-tachometer-alt"></i> Métricas Gerais</h3>
+                        <div class="metrics-container">
+                            <div class="metric-card">
+                                <div class="metric-icon">
+                                    <i class="fas fa-microchip"></i>
+                                </div>
+                                <div class="metric-info">
+                                    <h3 id="total-equipamentos">0</h3>
+                                    <p>Total de Equipamentos</p>
+                                </div>
+                            </div>
+
+                            <div class="metric-card">
+                                <div class="metric-icon">
+                                    <i class="fas fa-check-circle"></i>
+                                </div>
+                                <div class="metric-info">
+                                    <h3 id="equipamentos-retornados">0</h3>
+                                    <p>Retornados</p>
+                                </div>
+                            </div>
+
+                            <div class="metric-card">
+                                <div class="metric-icon">
+                                    <i class="fas fa-clock"></i>
+                                </div>
+                                <div class="metric-info">
+                                    <h3 id="em-assistencia">0</h3>
+                                    <p>Em Assistência</p>
+                                </div>
+                            </div>
+
+                            <div class="metric-card">
+                                <div class="metric-icon">
+                                    <i class="fas fa-percentage"></i>
+                                </div>
+                                <div class="metric-info">
+                                    <h3 id="taxa-retorno">0%</h3>
+                                    <p>Taxa de Retorno</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Filtros -->
+                    <div class="dashboard-section">
+                        <h3><i class="fas fa-filter"></i> Filtros</h3>
+                        <div class="dashboard-filters">
+                            <div class="filter-row">
+                                <div class="filter-group">
+                                    <label><i class="fas fa-calendar"></i> Data Início</label>
+                                    <input type="date" id="filter-data-inicio">
+                                </div>
+                                
+                                <div class="filter-group">
+                                    <label><i class="fas fa-calendar"></i> Data Fim</label>
+                                    <input type="date" id="filter-data-fim">
+                                </div>
+                                
+                                <div class="filter-group">
+                                    <label><i class="fas fa-building"></i> Empresa</label>
+                                    <select id="filter-empresa">
+                                        <option value="todas">Todas</option>
+                                    </select>
+                                </div>
+                                
+                                <div class="filter-group">
+                                    <label><i class="fas fa-industry"></i> Fornecedor</label>
+                                    <select id="filter-fornecedor">
+                                        <option value="todos">Todos</option>
+                                    </select>
+                                </div>
+                                
+                                <div class="filter-group">
+                                    <button id="apply-filters" class="btn btn-primary btn-block">
+                                        <i class="fas fa-search"></i> Aplicar
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Abas de Análise -->
+                    <div class="dashboard-section">
+                        <h3><i class="fas fa-chart-line"></i> Análises</h3>
+                        <div class="analysis-tabs">
+                            <div class="tabs-header">
+                                <button class="tab-btn active" data-tab="modelos">
+                                    <i class="fas fa-microchip"></i> Modelos
+                                </button>
+                                <button class="tab-btn" data-tab="fornecedores">
+                                    <i class="fas fa-industry"></i> Fornecedores
+                                </button>
+                                <button class="tab-btn" data-tab="defeitos">
+                                    <i class="fas fa-exclamation-triangle"></i> Defeitos
+                                </button>
+                                <button class="tab-btn" data-tab="serie">
+                                    <i class="fas fa-search"></i> Busca por Série
+                                </button>
+                                <button class="tab-btn" data-tab="tendencia">
+                                    <i class="fas fa-chart-line"></i> Tendências
+                                </button>
+                            </div>
+
+                            <div class="tabs-content">
+                                <!-- Aba Modelos -->
+                                <div id="tab-modelos" class="tab-pane active">
+                                    <div class="tab-header">
+                                        <h3><i class="fas fa-microchip"></i> Análise por Modelo</h3>
+                                        <button class="btn-action" onclick="exportarModelos()">
+                                            <i class="fas fa-download"></i> Exportar
+                                        </button>
+                                    </div>
+                                    <div class="analysis-container">
+                                        <div class="chart-container">
+                                            <canvas id="chart-modelos"></canvas>
+                                        </div>
+                                        <div class="table-container">
+                                            <table class="modern-table" id="table-modelos">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Modelo</th>
+                                                        <th>Envios</th>
+                                                        <th>Únicos</th>
+                                                        <th>Dias Médios</th>
+                                                        <th>Retorno</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <!-- Dados dinâmicos -->
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Aba Fornecedores -->
+                                <div id="tab-fornecedores" class="tab-pane">
+                                    <div class="tab-header">
+                                        <h3><i class="fas fa-industry"></i> Análise por Fornecedor</h3>
+                                        <button class="btn-action" onclick="exportarFornecedores()">
+                                            <i class="fas fa-download"></i> Exportar
+                                        </button>
+                                    </div>
+                                    <div class="analysis-container">
+                                        <div class="chart-container">
+                                            <canvas id="chart-fornecedores"></canvas>
+                                        </div>
+                                        <div class="table-container">
+                                            <table class="modern-table" id="table-fornecedores">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Fornecedor</th>
+                                                        <th>Envios</th>
+                                                        <th>Dias Médios</th>
+                                                        <th>Retorno</th>
+                                                        <th>Status</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <!-- Dados dinâmicos -->
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Aba Defeitos -->
+                                <div id="tab-defeitos" class="tab-pane">
+                                    <div class="tab-header">
+                                        <h3><i class="fas fa-exclamation-triangle"></i> Defeitos Mais Frequentes</h3>
+                                        <button class="btn-action" onclick="exportarDefeitos()">
+                                            <i class="fas fa-download"></i> Exportar
+                                        </button>
+                                    </div>
+                                    <div class="analysis-container">
+                                        <div class="chart-container">
+                                            <canvas id="chart-defeitos"></canvas>
+                                        </div>
+                                        <div class="table-container">
+                                            <table class="modern-table" id="table-defeitos">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Defeito</th>
+                                                        <th>Ocorrências</th>
+                                                        <th>%</th>
+                                                        <th>Modelos</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <!-- Dados dinâmicos -->
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Aba Busca por Série -->
+                                <div id="tab-serie" class="tab-pane">
+                                    <div class="tab-header">
+                                        <h3><i class="fas fa-search"></i> Histórico por Número de Série</h3>
+                                    </div>
+                                    <div class="search-serie-container">
+                                        <div class="search-serie-wrapper">
+                                            <div class="search-box">
+                                                <i class="fas fa-barcode"></i>
+                                                <input type="text" id="search-numero-serie" 
+                                                       placeholder="Digite o número de série ou selecione da lista..." 
+                                                       list="series-list">
+                                                <datalist id="series-list">
+                                                    <!-- Opções serão preenchidas dinamicamente -->
+                                                </datalist>
+                                            </div>
+                                            <div class="search-actions">
+                                                <button id="search-serie-btn" class="btn btn-primary">
+                                                    <i class="fas fa-search"></i> Buscar
+                                                </button>
+                                                <button id="clear-serie-btn" class="btn btn-secondary">
+                                                    <i class="fas fa-times"></i> Limpar
+                                                </button>
+                                            </div>
+                                        </div>
+                                        
+                                        <div id="serie-details" class="serie-details" style="display: none;">
+                                            <div class="serie-header">
+                                                <h3>Equipamento: <span id="serie-numero" class="text-nso"></span></h3>
+                                                <div class="serie-stats">
+                                                    <span class="stat-badge">
+                                                        <i class="fas fa-paper-plane"></i>
+                                                        <span id="total-envios">0 envios</span>
+                                                    </span>
+                                                    <span class="stat-badge">
+                                                        <i class="fas fa-clock"></i>
+                                                        <span id="tempo-medio">0 dias</span>
+                                                    </span>
+                                                    <span class="stat-badge">
+                                                        <i class="fas fa-percentage"></i>
+                                                        <span id="taxa-retorno-serie">0%</span>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="serie-timeline">
+                                                <h4><i class="fas fa-history"></i> Linha do Tempo</h4>
+                                                <!-- Timeline dinâmica -->
+                                            </div>
+                                            
+                                            <div class="table-container">
+                                                <table class="modern-table" id="table-serie-historico">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>Envio</th>
+                                                            <th>Retorno</th>
+                                                            <th>Defeito</th>
+                                                            <th>Fornecedor</th>
+                                                            <th>Dias</th>
+                                                            <th>Status</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <!-- Dados dinâmicos -->
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Aba Tendências -->
+                                <div id="tab-tendencia" class="tab-pane">
+                                    <div class="tab-header">
+                                        <h3><i class="fas fa-chart-line"></i> Tendências Mensais</h3>
+                                        <div class="time-filter">
+                                            <select id="trend-period" class="form-control">
+                                                <option value="6">Últimos 6 meses</option>
+                                                <option value="12" selected>Últimos 12 meses</option>
+                                                <option value="24">Últimos 24 meses</option>
+                                                <option value="all">Todo período</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="analysis-container">
+                                        <div class="chart-container">
+                                            <canvas id="chart-tendencia-envios"></canvas>
+                                        </div>
+                                        <div class="chart-container">
+                                            <canvas id="chart-tendencia-retorno"></canvas>
+                                        </div>
+                                    </div>
+                                    <div class="insights-container">
+                                        <h4><i class="fas fa-lightbulb"></i> Insights</h4>
+                                        <div class="insight-card">
+                                            <p id="insight-mes-pico">Carregando análise...</p>
+                                        </div>
+                                        <div class="insight-card">
+                                            <p id="insight-tendencia">Carregando tendência...</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Insights Rápidos -->
+                    <div class="dashboard-section">
+                        <h3><i class="fas fa-chart-pie"></i> Insights Rápidos</h3>
+                        <div class="insights-section">
+                            <div class="insights-grid">
+                                <div class="insight-item">
+                                    <i class="fas fa-exclamation-triangle"></i>
+                                    <h4>Modelo Mais Problemático</h4>
+                                    <p id="modelo-problematico">-</p>
+                                </div>
+                                <div class="insight-item">
+                                    <i class="fas fa-check-circle"></i>
+                                    <h4>Fornecedor Mais Eficiente</h4>
+                                    <p id="fornecedor-eficiente">-</p>
+                                </div>
+                                <div class="insight-item">
+                                    <i class="fas fa-clock"></i>
+                                    <h4>Tempo Médio de Assistência</h4>
+                                    <p id="tempo-medio-geral">-</p>
+                                </div>
+                                <div class="insight-item">
+                                    <i class="fas fa-bug"></i>
+                                    <h4>Defeito Mais Comum</h4>
+                                    <p id="defeito-comum">-</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de Edição -->
+    <div id="modal-editar" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3><i class="fas fa-edit"></i> Editar Equipamento</h3>
+                <button class="modal-close" onclick="fecharModal()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <form id="form-editar" class="modern-form">
+                <input type="hidden" id="edit-id">
+                
+                <div class="form-group">
+                    <label for="edit-projeto">Projeto *</label>
+                    <select id="edit-projeto" required>
+                        <option value="">Selecione o projeto</option>
+                        <option value="Intermunicipal">Intermunicipal</option>
+                        <option value="Municipal">Municipal</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="edit-fornecedor">Fornecedor *</label>
+                    <select id="edit-fornecedor" required>
+                        <option value="">Selecione o fornecedor</option>
+                        <option value="Autopass">Autopass</option>
+                        <option value="Prodata">Prodata</option>
+                        <option value="Noxxon">Noxxon</option>
+                        <option value="Gardens">Gardens</option>
+                        <option value="Powerfleet">Powerfleet</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="edit-modelo">Modelo *</label>
+                    <input type="text" id="edit-modelo" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="edit-numero-serie">Nº de Série *</label>
+                    <input type="text" id="edit-numero-serie" required>
+                </div>
+
+                <div class="form-group full-width">
+                    <label for="edit-defeito">Defeito *</label>
+                    <input type="text" id="edit-defeito" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="edit-empresa">Empresa *</label>
+                    <select id="edit-empresa" required>
+                        <option value="">Selecione a empresa</option>
+                        <option value="AVUL">AVUL</option>
+                        <option value="VSBL">VSBL</option>
+                        <option value="VCCL">VCCL</option>
+                        <option value="UTTL">UTTL</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="edit-filial">Filial *</label>
+                    <select id="edit-filial" required>
+                        <option value="">Selecione a filial</option>
+                        <option value="Osasco">Osasco</option>
+                        <option value="Jaguara">Jaguara</option>
+                        <option value="Franco">Franco</option>
+                        <option value="Caieiras">Caieiras</option>
+                        <option value="Santana">Santana</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="edit-data-envio">Data de Envio *</label>
+                    <input type="date" id="edit-data-envio" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="edit-data-retorno">Data de Retorno</label>
+                    <input type="date" id="edit-data-retorno">
+                </div>
+
+                <div class="form-group">
+                    <label>Retornou da Assistência?</label>
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="edit-retornou">
+                        <label for="edit-retornou" style="font-weight: normal;">Sim, equipamento retornou</label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="optional">Possui Arquivo?</label>
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="edit-tem-arquivo">
+                        <label for="edit-tem-arquivo" style="font-weight: normal;">Sim, possui arquivo</label>
+                    </div>
+                </div>
+
+                <div class="modal-actions">
+                    <button type="button" class="btn btn-secondary" onclick="fecharModal()">
+                        <i class="fas fa-times"></i>
+                        Cancelar
+                    </button>
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-save"></i>
+                        Salvar Alterações
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Incluir Chart.js para gráficos -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
